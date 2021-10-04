@@ -175,7 +175,7 @@ int TBitField::operator!=(const TBitField& bf) const // сравнение
 TBitField TBitField::operator|(const TBitField& bf) // операция "или"
 {
 	int l = BitLen;
-	if (BitLen = bf.BitLen)
+	if (BitLen < bf.BitLen)
 		l = bf.BitLen;
 	TBitField Field(l);
 	for (int i = 0; i < Field.MemLen; i++)
@@ -186,8 +186,9 @@ TBitField TBitField::operator|(const TBitField& bf) // операция "или"
 TBitField TBitField::operator&(const TBitField& bf) // операция "и"
 {
 	int l = BitLen;
-	if (BitLen = bf.BitLen)
+	if (BitLen < bf.BitLen)
 		l = bf.BitLen;
+
 	TBitField res(l);
 	for (int i = 0; i < res.MemLen; i++)
 		res.pMem[i] = pMem[i] & bf.pMem[i];
@@ -234,7 +235,7 @@ istream& operator>>(istream& istr, TBitField& bf) // ввод
 ostream& operator<<(ostream& ostr, const TBitField& bf) // вывод
 {
 	for (int i = 0; i < bf.BitLen; i++)
-		if (bf.GetBit(i)) ostr << 1;
-		else ostr << 0;
+		if (bf.GetBit(i)) ostr << 1 << " ";
+		else ostr << 0 << " ";
 	return ostr;
 }
